@@ -6,10 +6,9 @@ USER root
 
 # Add Julia dependencies
 RUN apt-get update
-RUN apt-get install -y julia libnettle4 && apt-get clean
+RUN apt-get install -y abinit abinit-doc && apt-get clean
 
 USER main
 
-# Install Julia kernel
-RUN julia -e 'Pkg.add("IJulia")'
-RUN julia -e 'Pkg.add("Gadfly")' && julia -e 'Pkg.add("RDatasets")'
+RUN conda config --add channels conda-forge
+RUN conda install -y -n python3 ase spglib jupyter nglview
